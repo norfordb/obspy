@@ -122,9 +122,13 @@ def validate_stationxml(path_or_object):
     version = _get_version_from_xmldoc(xmldoc)
 
     # Get the schema location.
-    schema_location = os.path.dirname(inspect.getfile(inspect.currentframe()))
+#     schema_location = os.path.dirname(inspect.getfile(inspect.currentframe()))
+#     schema_location = os.path.join(schema_location, "data",
+#                                    "fdsn-station-%s.xsd" % version)
     schema_location = os.path.join(schema_location, "data",
-                                   "fdsn-station-%s.xsd" % version)
+                                   "sis_extension.xsd")
+
+    print("schema_location = ", schema_location)
 
     if not os.path.exists(schema_location):
         msg = "No schema file found to validate StationXML version '%s'"
@@ -881,15 +885,14 @@ def _write_stationxml(inventory, file_or_file_object, validate=False,
     :type nsmap: dict
     :param nsmap: Additional custom namespace abbreviation mappings
         (e.g. `{"edb": "http://erdbeben-in-bayern.de/xmlns/0.1"}`).
-
     """
     if nsmap is None:
         nsmap = {}
-    elif None in nsmap:
-        msg = ("Custom namespace mappings do not allow redefinition of "
-               "default StationXML namespace (key `None`). "
-               "Use other namespace abbreviations for custom namespace tags.")
-        raise ValueError(msg)
+#     elif None in nsmap:
+#         msg = ("Custom namespace mappings do not allow redefinition of "
+#                "default StationXML namespace (key `None`). "
+#                "Use other namespace abbreviations for custom namespace tags.")
+#         raise ValueError(msg)
 
     nsmap[None] = "http://www.fdsn.org/xml/station/1"
     attrib = {"schemaVersion": SCHEMA_VERSION}

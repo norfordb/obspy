@@ -102,7 +102,7 @@ class Inventory(ComparingObject):
     """
     def __init__(self, networks=None, source=SOFTWARE_MODULE, sender=None,
                  created=None, module=SOFTWARE_MODULE,
-                 module_uri=SOFTWARE_URI):
+                 module_uri=SOFTWARE_URI, HardwareResponse=None):
         """
         :type networks: list of
             :class:`~obspy.core.inventory.network.Network`
@@ -129,6 +129,7 @@ class Inventory(ComparingObject):
             see the :ref:`ObsPy Tutorial <stationxml-extra>`.
         """
         self.networks = networks if networks is not None else []
+        self.hardware = HardwareResponse
         self.source = source
         self.sender = sender
         self.module = module
